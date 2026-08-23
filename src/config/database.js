@@ -1,15 +1,29 @@
-const mongoose = require("mongoose"); // MongoDB-এর সাথে কাজ করার জন্য Mongoose import করছি
+const mongoose = require("mongoose");
 
-const connectDatabase = async () => { // Database connection-এর জন্য একটি async function তৈরি করছি
+let cachedConnection = null;
+
+const connectDatabase = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI); // .env থেকে MONGO_URI নিয়ে MongoDB Atlas-এ connect করছি
+    if (cachedConnection) {
+      return cachedConnection;
+    }
 
-    console.log("MongoDB connected successfully"); // Connection সফল হলে এই message দেখাবে
+    if (!process.env.MONGO_URI) {
+      throw new Error("MONGO_URI is not defined");
+    }
+
+    cachedConnection = await mongoose.connect(process.env.MONGO_URI);
+
+    console.log("MongoDB connected successfully");
+
+    return cachedConnection;
   } catch (error) {
-    console.error("MongoDB connection failed:", error.message); // Connection fail হলে error দেখাবে
-    throw error; // Error-টি server.js-এ পাঠিয়ে দিচ্ Error throw করে higher level-এ handle করার জন্য
-    
+    cachedConnection = null;
+
+    console.error("MongoDB connection failed:", error.message);
+
+    throw error;
   }
 };
 
-module.exports = connectDatabase; // Function-টি অন্য file থেকে ব্যবহার করার জন্য export করছি
+module.exports = connectDatabase;
