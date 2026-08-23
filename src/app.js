@@ -1,5 +1,9 @@
 const express = require("express"); // Express framework import করছি
 
+const cors = require("cors"); // Frontend এবং backend-এর cross-origin request control করার জন্য CORS import করছি
+
+const cookieParser = require("cookie-parser"); // HTTP cookies পড়ার জন্য cookie-parser import করছি
+
 const authRoutes = require("./routes/authRoutes"); // Authentication routes import করছি
 
 const taskRoutes = require("./routes/taskRoutes"); // Task routes import করছি
@@ -9,6 +13,15 @@ const adminRoutes = require("./routes/adminRoutes"); // Admin routes import ক�
 const healthRoutes = require("./routes/healthRoutes"); // Health check routes import করছি
 
 const app = express(); // Express application তৈরি করছি
+
+app.use(
+    cors({
+        origin: process.env.FRONTEND_URL || "http://localhost:5173", // কোন frontend origin backend access করতে পারবে তা নির্ধারণ করছি
+        credentials: true, // Browser-কে HttpOnly cookies request-এর সাথে পাঠানোর অনুমতি দিচ্ছি
+    })
+);
+
+app.use(cookieParser()); // Incoming cookies-কে req.cookies-এর মাধ্যমে access করার middleware enable করছি
 
 app.use(express.json()); // JSON request body পড়ার জন্য middleware চালু করছি
 
