@@ -14,6 +14,12 @@
 - Frontend:  https://github.com/Biggan2003/Task-Manager-Production-Ready-Fullstack-Frontend-React
 - Backend:   https://github.com/Biggan2003/Task-Manager-Production-Ready-Fullstack-Backend-Nodejs-MongoDB-REST-API
 
+### Hosting Server Link:
+
+- Live Hosting: https://task-manager-vert-eta.vercel.app/
+- Frontend: https://vercel.com/biggan2003s-projects/task-manager
+- Backend: https://vercel.com/biggan2003s-projects/task-manager-backend
+
 ## 1. Project Overview
 
 This backend provides a REST API for a Task Manager application.
