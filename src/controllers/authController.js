@@ -200,7 +200,7 @@ const loginUser = async (req, res) => {
             secure: process.env.NODE_ENV === "production",
             // Production-এ শুধু HTTPS connection-এর মাধ্যমে cookie পাঠাচ্ছি
 
-            sameSite: "strict",
+            sameSite: "none",
             // Cross-site request থেকে cookie protection দিচ্ছি
 
             maxAge: 60 * 60 * 1000,
@@ -222,7 +222,7 @@ const loginUser = async (req, res) => {
             secure: process.env.NODE_ENV === "production",
             // Production-এ শুধু HTTPS connection ব্যবহার করছি
 
-            sameSite: "strict",
+            sameSite: "none",
             // Cross-site request থেকে cookie protection দিচ্ছি
 
             maxAge: 10 * 24 * 60 * 60 * 1000,
